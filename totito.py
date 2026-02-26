@@ -245,7 +245,7 @@ class Totito:
         self.puntajes     = {"X": 0, "empate": 0, "O": 0}
 
         self._construir_ui()              # construir todos los widgets
-        self._centrar_ventana(500, 680)   # centrar en pantalla
+        self._centrar_ventana(500, 760)   # centrar en pantalla
 
     # ──────────────────────────────────────────────────────────────────────────
     #  CONSTRUCCIÓN DE LA INTERFAZ
@@ -260,7 +260,7 @@ class Totito:
         # tkfont.Font() crea objetos de fuente reutilizables
         self.fuente_titulo    = tkfont.Font(family="Courier", size=28, weight="bold")
         self.fuente_subtitulo = tkfont.Font(family="Courier", size=9)
-        self.fuente_celda     = tkfont.Font(family="Courier", size=52, weight="bold")  # X y O grandes
+        self.fuente_celda     = tkfont.Font(family="Courier", size=40, weight="bold")  # X y O grandes
         self.fuente_score     = tkfont.Font(family="Courier", size=22, weight="bold")
         self.fuente_label     = tkfont.Font(family="Courier", size=8)
         self.fuente_status    = tkfont.Font(family="Courier", size=11, weight="bold")
@@ -332,7 +332,7 @@ class Totito:
         board_frame = tk.Frame(self.root, bg=BG)
         board_frame.pack(**pad, pady=(0, 10))
 
-        self.canvas = tk.Canvas(board_frame, width=340, height=340,
+        self.canvas = tk.Canvas(board_frame, width=280, height=280,
                                 bg=PANEL, highlightthickness=1,
                                 highlightbackground=BORDER)
         self.canvas.pack()
@@ -400,10 +400,10 @@ class Totito:
         c.delete("all")  # borrar todo lo que hay en el canvas
 
         # Líneas de la cuadrícula — create_line(x1, y1, x2, y2)
-        c.create_line(113, 28, 113, 312, fill=BORDER, width=2)  # vertical izquierda
-        c.create_line(227, 28, 227, 312, fill=BORDER, width=2)  # vertical derecha
-        c.create_line(28, 113, 312, 113, fill=BORDER, width=2)  # horizontal superior
-        c.create_line(28, 227, 312, 227, fill=BORDER, width=2)  # horizontal inferior
+        c.create_line(93, 23, 93, 257, fill=BORDER, width=2)   # vertical izquierda
+        c.create_line(187, 23, 187, 257, fill=BORDER, width=2)  # vertical derecha
+        c.create_line(23, 93, 257, 93, fill=BORDER, width=2)   # horizontal superior
+        c.create_line(23, 187, 257, 187, fill=BORDER, width=2)  # horizontal inferior
 
         # Redibujar los símbolos que ya existen en el tablero
         for i, val in enumerate(self.tablero):
@@ -422,10 +422,10 @@ class Totito:
             índice 4 → (col=1, fila=1) → centro (171, 171)  ← centro del tablero
             índice 8 → (col=2, fila=2) → centro (285, 285)
         """
-        fila = index // 3   # 0, 1 o 2
-        col  = index % 3    # 0, 1 o 2
-        x = 57 + col * 114  # centro horizontal de la celda
-        y = 57 + fila * 114 # centro vertical de la celda
+        fila = index // 3
+        col  = index % 3
+        x = 47 + col * 94
+        y = 47 + fila * 94
         return x, y
 
     def _dibujar_simbolo(self, index, simbolo, color=None):
@@ -452,8 +452,8 @@ class Totito:
             return
 
         # Calcular en qué celda (col, fila) cayó el clic
-        col  = event.x // (340 // 3)
-        fila = event.y // (340 // 3)
+        col  = event.x // (280 // 3)
+        fila = event.y // (280 // 3)
 
         # Ignorar clics fuera del área de juego
         if col > 2 or fila > 2:
